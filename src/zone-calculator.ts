@@ -8,36 +8,36 @@ interface ZoneRange {
 
 export class ZoneCalculator {
   private zoneRanges = [
-    { min: 0, max: 50, zoneNumber: 1, color: '#e6f7e6', description: 'Zone 1: 1-50 miles' },
-    { min: 51, max: 150, zoneNumber: 2, color: '#c2eac2', description: 'Zone 2: 51-150 miles' },
-    { min: 151, max: 300, zoneNumber: 3, color: '#9ddca0', description: 'Zone 3: 151-300 miles' },
-    { min: 301, max: 600, zoneNumber: 4, color: '#79ce7e', description: 'Zone 4: 301-600 miles' },
+    { min: 0, max: 50, zoneNumber: 1, color: '#FFE4F6', description: 'Zone 1: 1-50 miles' },
+    { min: 51, max: 150, zoneNumber: 2, color: '#8486FF', description: 'Zone 2: 51-150 miles' },
+    { min: 151, max: 300, zoneNumber: 3, color: '#90C1FF', description: 'Zone 3: 151-300 miles' },
+    { min: 301, max: 600, zoneNumber: 4, color: '#A3FFFF', description: 'Zone 4: 301-600 miles' },
     {
       min: 601,
       max: 1000,
       zoneNumber: 5,
-      color: '#4db863',
+      color: '#A5FF8F',
       description: 'Zone 5: 601-1,000 miles',
     },
     {
       min: 1001,
       max: 1400,
       zoneNumber: 6,
-      color: '#2a9d44',
+      color: '#FFFF90',
       description: 'Zone 6: 1,001-1,400 miles',
     },
     {
       min: 1401,
       max: 1800,
       zoneNumber: 7,
-      color: '#1a7a30',
+      color: '#FCC18A',
       description: 'Zone 7: 1,401-1,800 miles',
     },
     {
       min: 1801,
       max: Infinity,
       zoneNumber: 8,
-      color: '#0a5520',
+      color: '#FC8A8A',
       description: 'Zone 8: 1,801+ miles',
     },
   ];

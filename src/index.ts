@@ -257,6 +257,9 @@ class USPSZoneMap {
       return;
     }
 
+    console.log('From coordinates:', fromCoords);
+    console.log('To coordinates:', toCoords);
+
     // Remove existing markers
     if (this.originMarker) {
       this.originMarker.remove();
@@ -267,10 +270,28 @@ class USPSZoneMap {
       this.destinationMarker = null;
     }
 
-    // Calculate and display zones without adding markers
+    // Ensure Mapbox CSS is loaded
+    this.ensureMapboxCssLoaded();
+
+    // Add new markers with specific configuration
+    this.originMarker = new mapboxgl.Marker({
+      color: '#8486FF',
+      draggable: false,
+    })
+      .setLngLat([fromCoords[0], fromCoords[1]])
+      .addTo(this.map);
+
+    this.destinationMarker = new mapboxgl.Marker({
+      color: '#FCC18A',
+      draggable: false,
+    })
+      .setLngLat([toCoords[0], toCoords[1]])
+      .addTo(this.map);
+
+    // Calculate and display zones
     this.updateZoneVisualization(fromCoords);
 
-    // Calculate distance and display it (optional)
+    // Calculate distance and zone
     const distance = this.zoneCalculator.calculateDistance(
       fromCoords[1],
       fromCoords[0],
@@ -280,6 +301,14 @@ class USPSZoneMap {
     const zone = this.zoneCalculator.calculateZone(distance);
 
     console.log(`Distance: ${Math.round(distance)} miles, Zone: ${zone.zoneNumber}`);
+
+    // Fit the map to show both markers
+    const bounds = new mapboxgl.LngLatBounds().extend(fromCoords).extend(toCoords);
+
+    this.map.fitBounds(bounds, {
+      padding: 100,
+      maxZoom: 10,
+    });
   }
 
   private updateZoneVisualization(originCoordinates: [number, number]) {
@@ -481,6 +510,18 @@ class USPSZoneMap {
     title.style.paddingBottom = '4px';
 
     document.getElementById(this.map.getContainer().id)?.appendChild(legend);
+  }
+
+  // Helper method to ensure Mapbox CSS is loaded
+  private ensureMapboxCssLoaded() {
+    if (!document.getElementById('mapbox-gl-css')) {
+      const link = document.createElement('link');
+      link.id = 'mapbox-gl-css';
+      link.rel = 'stylesheet';
+      link.href = 'https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css';
+      document.head.appendChild(link);
+      console.log('Added Mapbox CSS dynamically');
+    }
   }
 }
 
